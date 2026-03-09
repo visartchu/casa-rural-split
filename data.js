@@ -25,7 +25,7 @@ const paid = {
 const items = [
   { id: 1, name: "CARBO VEGETAL", price: 4.25, category: "comun", consumers: "all" },
   { id: 2, name: "BOSSA PLASTIC", price: 1.20, category: "comun", consumers: "all" },
-  { id: 3, name: "OLI VERGE", price: 4.45, category: "comun", consumers: "all" },
+  { id: 3, name: "OLI VERGE", price: 4.45, category: "comun", exclude: ["Berni", "Vera"] },
   { id: 4, name: "ROTLLIE CUINA GEGANT", price: 2.90, category: "comun", consumers: "all" },
   { id: 5, name: "SAL FINA", price: 0.40, category: "comun", consumers: "all" },
   { id: 6, name: "ALL SEC 250 G", price: 1.85, category: "comun", consumers: "all" },
