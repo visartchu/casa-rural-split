@@ -1,51 +1,3 @@
-const people = [
-  "Ivan",
-  "Alvaro",
-  "Alba",
-  "Andreu",
-  "Berni",
-  "Eric",
-  "Nora",
-  "Paula",
-  "Ruben",
-  "Sergi",
-  "Vera",
-  "Isa",
-  "Jordi",
-  "Maria"
-];
-const calcotsPeople = people.filter(p => p !== "Berni" && p !== "Vera");
-const paid = {
-  Vera: 23.23,
-  Jordi: 2,
-  Alvaro: 76.20,
-  Berni: 5.50
-};
-
-const items = [
-  { id: 1, name: "CARBO VEGETAL", price: 4.25, category: "comun", consumers: [...people] },
-  { id: 2, name: "BOSSA PLASTIC", price: 1.20, category: "comun", consumers: [...people] },
-  { id: 3, name: "OLI VERGE", price: 4.45, category: "comun", consumers: [...people] },
-  { id: 4, name: "ROTLLIE CUINA GEGANT", price: 2.90, category: "comun", consumers: [...people] },
-  { id: 5, name: "SAL FINA", price: 0.40, category: "comun", consumers: [...people] },
-  { id: 6, name: "ALL SEC 250 G", price: 1.85, category: "comun", consumers: [...people] },
-  { id: 7, name: "ALLOTI TARRINA", price: 1.10, category: "comun", consumers: [...people] },
-  { id: 8, name: "GOT REUTILITZABLE", price: 1.65, category: "comun", consumers: [...people] },
-  { id: 9, name: "SALSA CALÇOTS (4)", price: 11.20, category: "comun", consumers: [...calcotsPeople] },
-  { id: 10, name: "OLIVA AMB OS PET", price: 1.40, category: "comun", consumers: [...people] },
-  { id: 11, name: "PEBRE NEGRE MOLT", price: 1.30, category: "comun", consumers: [...people] },
-  { id: 12, name: "HIGIENIC DOBLE ROLL", price: 4.50, category: "comun", consumers: [...people] },
-  { id: 13, name: "CALÇOTS", price: 40.00, category: "comun", exclude: ["Berni","Vera"] },
-  { id: 14, name: "OLIVAS", price: 4.89, category: "comun", consumers: [...people] },
-  { id: 15, name: "PATATAS", price: 5.98, category: "comun", consumers: [...people] },
-  { id: 16, name: "PATATAS CAMPESINAS", price: 2.05, category: "comun", consumers: [...people] },
-  { id: 17, name: "RUFFLES JAMÓN", price: 2.99, category: "comun", consumers: [...people] },
-  { id: 18, name: "PAPEL DE PLATA", price: 3.34, category: "comun", consumers: [...people] },
-  { id: 19, name: "AGUA", price: 3.98, category: "comun", consumers: [...people] },
-  { id: 20, name: "ESTROPAJO", price: 2.00, category: "comun", consumers: [...people] },
-  { id: 21, name: "HIELOS", price: 5.50, category: "comun", consumers: [...people] }
-];
-
 let filtroActual = "comun";
 
 const itemsContainer = document.getElementById("items");
@@ -58,6 +10,22 @@ const differenceEl = document.getElementById("difference");
 
 function formatEuro(value) {
   return value.toFixed(2).replace(".", ",") + " €";
+}
+
+function getConsumersList(item) {
+  if (item.exclude && Array.isArray(item.exclude)) {
+    return people.filter((p) => !item.exclude.includes(p));
+  }
+
+  if (item.consumers === "all") {
+    return [...people];
+  }
+
+  if (Array.isArray(item.consumers)) {
+    return item.consumers;
+  }
+
+  return [];
 }
 
 function setFiltro(filtro) {
@@ -82,7 +50,8 @@ function setFiltro(filtro) {
 function asignarComunesATodos() {
   items.forEach((item) => {
     if (item.category === "comun") {
-      item.consumers = [...people];
+      delete item.exclude;
+      item.consumers = "all";
     }
   });
 
@@ -91,7 +60,6 @@ function asignarComunesATodos() {
 }
 
 function limpiarTodo() {
-  // No toca los comunes porque van fijos.
   renderItems();
   renderSummary();
 }
@@ -108,7 +76,12 @@ function renderItems() {
   const filtered = getFilteredItems();
 
   itemsContainer.innerHTML = filtered.map((item) => {
-    const porPersona = item.consumers.length > 0 ? item.price / item.consumers.length : 0;
+    const consumersList = getConsumersList(item);
+    const porPersona = consumersList.length > 0 ? item.price / consumersList.length : 0;
+    const repartidoTexto =
+      item.exclude && item.exclude.length > 0
+        ? `Repartido entre ${consumersList.length} personas · Excluidos: ${item.exclude.join(", ")}`
+        : `Repartido entre ${consumersList.length} personas`;
 
     return `
       <div class="item ${item.category}">
@@ -121,7 +94,7 @@ function renderItems() {
           </div>
         </div>
 
-        <div class="meta">Repartido automáticamente entre todos</div>
+        <div class="meta">${repartidoTexto}</div>
       </div>
     `;
   }).join("");
@@ -134,10 +107,11 @@ function buildTotals() {
   });
 
   items.forEach((item) => {
-    if (item.consumers.length === 0) return;
+    const consumersList = getConsumersList(item);
+    if (!consumersList.length) return;
 
-    const split = item.price / item.consumers.length;
-    item.consumers.forEach((person) => {
+    const split = item.price / consumersList.length;
+    consumersList.forEach((person) => {
       totals[person] += split;
     });
   });
