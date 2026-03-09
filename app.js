@@ -35,6 +35,7 @@ const items = [
   { id: 17, name: "RUFFLES JAMÓN", price: 2.99, category: "comun", consumers: [...people] },
   { id: 18, name: "PAPEL DE PLATA", price: 3.34, category: "comun", consumers: [...people] },
   { id: 19, name: "AGUA", price: 3.98, category: "comun", consumers: [...people] },
+  { id: 20, name: "CALÇOTS", price: 40.00, category: "comun", consumers: [...people] },
 
   // Alcohol oculto por ahora
   { id: 20, name: "Ron viernes 1", price: 15.45, category: "alcohol", consumers: [] },
