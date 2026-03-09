@@ -14,7 +14,7 @@ const people = [
   "Jordi",
   "Maria"
 ];
-
+const calcotsPeople = people.filter(p => p !== "Berni" && p !== "Vera");
 const paid = {
   Vera: 23.23,
   Jordi: 2,
@@ -31,7 +31,7 @@ const items = [
   { id: 6, name: "ALL SEC 250 G", price: 1.85, category: "comun", consumers: [...people] },
   { id: 7, name: "ALLOTI TARRINA", price: 1.10, category: "comun", consumers: [...people] },
   { id: 8, name: "GOT REUTILITZABLE", price: 1.65, category: "comun", consumers: [...people] },
-  { id: 9, name: "SALSA CALÇOTS (4)", price: 11.20, category: "comun", consumers: [...people] },
+  { id: 9, name: "SALSA CALÇOTS (4)", price: 11.20, category: "comun", consumers: [...calcotsPeople] },
   { id: 10, name: "OLIVA AMB OS PET", price: 1.40, category: "comun", consumers: [...people] },
   { id: 11, name: "PEBRE NEGRE MOLT", price: 1.30, category: "comun", consumers: [...people] },
   { id: 12, name: "HIGIENIC DOBLE ROLL", price: 4.50, category: "comun", consumers: [...people] },
