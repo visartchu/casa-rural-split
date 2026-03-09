@@ -35,7 +35,7 @@ const items = [
   { id: 10, name: "OLIVA AMB OS PET", price: 1.40, category: "comun", consumers: [...people] },
   { id: 11, name: "PEBRE NEGRE MOLT", price: 1.30, category: "comun", consumers: [...people] },
   { id: 12, name: "HIGIENIC DOBLE ROLL", price: 4.50, category: "comun", consumers: [...people] },
-  { id: 13, name: "CALÇOTS", price: 40.00, category: "comun", consumers: [...people] },
+  { id: 13, name: "CALÇOTS", price: 40.00, category: "comun", exclude: ["Berni","Vera"] },
   { id: 14, name: "OLIVAS", price: 4.89, category: "comun", consumers: [...people] },
   { id: 15, name: "PATATAS", price: 5.98, category: "comun", consumers: [...people] },
   { id: 16, name: "PATATAS CAMPESINAS", price: 2.05, category: "comun", consumers: [...people] },
