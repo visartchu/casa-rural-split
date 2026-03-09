@@ -39,7 +39,7 @@ const items = [
   { id: 14, name: "OLIVAS", price: 4.89, category: "comun", exclude: ["Isa"] },
   { id: 15, name: "PATATAS", price: 5.98, category: "comun", consumers: "all" },
   { id: 16, name: "PATATAS CAMPESINAS", price: 2.05, category: "comun", consumers: "all" },
-  { id: 17, name: "RUFFLES JAMÓN", price: 2.99, category: "comun", consumers: "all" },
+  { id: 17, name: "RUFFLES JAMÓN", price: 2.99, category: "comun",  exclude: ["Berni"] },
   { id: 18, name: "PAPEL DE PLATA", price: 3.34, category: "comun", consumers: "all" },
   { id: 19, name: "BOLSAS DE BASURA", price: 2.10, category: "comun", exclude: ["Ruben", "Eric"] },
   { id: 20, name: "ESTROPAJO", price: 2.00, category: "comun", consumers: "all" },
