@@ -24,7 +24,7 @@ const paid = {
 
 const items = [
   { id: 1, name: "CARBO VEGETAL", price: 4.25, category: "comun", consumers: "all" },
-  { id: 2, name: "BOSSA PLASTIC", price: 1.20, category: "comun", consumers: "all" },
+  //{ id: 2, name: "BOSSA PLASTIC", price: 1.20, category: "comun", consumers: "all" },
   { id: 3, name: "OLI VERGE", price: 4.45, category: "comun", exclude: ["Berni", "Vera"] },
   { id: 4, name: "ROTLLIE CUINA GEGANT", price: 2.90, category: "comun", consumers: "all" },
   { id: 5, name: "SAL FINA", price: 0.40, category: "comun", consumers: "all" },
@@ -41,7 +41,8 @@ const items = [
   { id: 16, name: "PATATAS CAMPESINAS", price: 2.05, category: "comun", consumers: "all" },
   { id: 17, name: "RUFFLES JAMÓN", price: 2.99, category: "comun", consumers: "all" },
   { id: 18, name: "PAPEL DE PLATA", price: 3.34, category: "comun", consumers: "all" },
-  { id: 19, name: "AGUA", price: 3.98, category: "comun", exclude: ["Ruben", "Eric"] },
+  { id: 19, name: "BOLSAS DE BASURA", price: 2,10, category: "comun", exclude: ["Ruben", "Eric"] },
   { id: 20, name: "ESTROPAJO", price: 2.00, category: "comun", consumers: "all" },
-  { id: 21, name: "HIELOS", price: 5.50, category: "comun", consumers: "all" }
+  { id: 21, name: "HIELOS", price: 5.50, category: "comun", consumers: "all" },
+  { id: 22, name: "PASTILLAS CARBON", price: 1,05, category: "comun", consumers: "all" },
 ];
