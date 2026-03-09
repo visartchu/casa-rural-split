@@ -10,52 +10,59 @@
   <div class="wrap">
     <header class="card header-card">
       <h1>Reparto Casa Rural</h1>
-      <p>Marca quién ha consumido cada producto y calcula cuánto paga cada uno.</p>
+      <p>Reparto rápido estilo Tricount.</p>
 
       <div class="toolbar">
         <button class="btn btn-dark" id="btnComunes">Comunes → todos</button>
-        <button class="btn btn-light" id="btnLimpiar">Limpiar selección</button>
+        <button class="btn btn-light" id="btnLimpiar">Limpiar pagos editables</button>
         <button class="btn btn-green" id="btnCopiar">Copiar resumen</button>
       </div>
     </header>
 
     <main class="grid">
       <section class="card">
-        <h2>Productos</h2>
+        <h2>Productos / Pagos</h2>
 
         <div class="filters">
-          <button class="filter-btn active" data-filter="todos">Todos</button>
-          <button class="filter-btn" data-filter="comun">Común</button>
+          <button class="filter-btn active" data-filter="comun">Común</button>
+          <button class="filter-btn" data-filter="pagos">Pagos</button>
         </div>
 
         <div id="items"></div>
+        <div id="payments" class="hidden"></div>
       </section>
 
-      <aside class="card summary-card">
-        <h2>Resumen</h2>
-        <div id="summary"></div>
-  <h2>Balance</h2>
-<div id="balance"></div>
-        <hr />  
-
-        <div class="summary-row">
-          <span>Total ticket</span>
-          <strong id="grandTotal"></strong>
+      <aside class="summary-column">
+        <div class="card summary-card">
+          <h2>Resumen</h2>
+          <div id="summary"></div>
         </div>
 
-        <div class="summary-row">
-          <span>Total repartido</span>
-          <strong id="assignedTotal"></strong>
+        <div class="card summary-card">
+          <h2>Balance</h2>
+          <div id="balance"></div>
         </div>
 
-        <div class="summary-row">
-          <span>Diferencia</span>
-          <strong id="difference"></strong>
-        </div>
+        <div class="card summary-card">
+          <h2>Totales</h2>
 
-        <p class="small">
-          Si la diferencia no es 0, hay algo mal asignado.
-        </p>
+          <div class="summary-row">
+            <span>Total ticket</span>
+            <strong id="grandTotal"></strong>
+          </div>
+
+          <div class="summary-row">
+            <span>Total repartido</span>
+            <strong id="assignedTotal"></strong>
+          </div>
+
+          <div class="summary-row">
+            <span>Diferencia</span>
+            <strong id="difference"></strong>
+          </div>
+
+          <p class="small">Si la diferencia no es 0, hay algo descuadrado.</p>
+        </div>
       </aside>
     </main>
   </div>
