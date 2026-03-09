@@ -137,10 +137,11 @@
         <div class="card">
           <h2>Productos</h2>
 
-          <div class="filters">
-            <button class="filter-btn active" onclick="setFiltro('todos', event)">Todos</button>
-            <button class="filter-btn" onclick="setFiltro('comun', event)">Común</button>
-          </div>
+            <div class="filters">
+              <button class="filter-btn active" onclick="setFiltro('todos', event)">Todos</button>
+              <button class="filter-btn" onclick="setFiltro('comun', event)">Común</button>
+              <button class="filter-btn" onclick="setFiltro('alcohol', event)">Alcohol</button>
+            </div>
 
           <div id="items"></div>
         </div>
@@ -200,6 +201,12 @@
       { id: 10, name: "OLIVA AMB OS PET", price: 1.40, category: "comun", consumers: [...people] },
       { id: 11, name: "PEBRE NEGRE MOLT", price: 1.30, category: "comun", consumers: [...people] },
       { id: 12, name: "HIGIENIC DOBLE ROLL", price: 4.50, category: "comun", consumers: [...people] }
+      { id: 13, name: "Ron viernes 1", price: 15.45, category: "alcohol", consumers: [] },
+      { id: 14, name: "Ron sábado 3", price: 46.35, category: "alcohol", consumers: [] },
+      { id: 15, name: "Jager viernes 1", price: 15.25, category: "alcohol", consumers: [] },
+      { id: 16, name: "Jager sábado 1", price: 15.25, category: "alcohol", consumers: [] },
+      { id: 17, name: "Cola Zero 1", price: 4.10, category: "alcohol", consumers: [] },
+      { id: 18, name: "Cola Zero 2", price: 4.10, category: "alcohol", consumers: [] }
     ];
 
     let filtroActual = "todos";
