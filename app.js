@@ -191,6 +191,36 @@ function renderSummary() {
   grandTotalEl.textContent = formatEuro(grandTotal);
   assignedTotalEl.textContent = formatEuro(assignedTotal);
   differenceEl.textContent = formatEuro(difference);
+
+  renderBalance(totals);
+}
+
+  items.forEach((item) => {
+    if (item.consumers.length === 0) return;
+
+    const split = item.price / item.consumers.length;
+    item.consumers.forEach((person) => {
+      totals[person] += split;
+    });
+  });
+
+  const grandTotal = items
+    .filter((item) => item.category !== "alcohol")
+    .reduce((sum, item) => sum + item.price, 0);
+
+  const assignedTotal = Object.values(totals).reduce((sum, value) => sum + value, 0);
+  const difference = grandTotal - assignedTotal;
+
+  summaryContainer.innerHTML = people.map((person) => `
+    <div class="summary-row">
+      <span>${person}</span>
+      <strong>${formatEuro(totals[person])}</strong>
+    </div>
+  `).join("");
+
+  grandTotalEl.textContent = formatEuro(grandTotal);
+  assignedTotalEl.textContent = formatEuro(assignedTotal);
+  differenceEl.textContent = formatEuro(difference);
 }
 
 document.getElementById("btnComunes").addEventListener("click", asignarComunesATodos);
@@ -256,4 +286,3 @@ function renderBalance(totals) {
 
 renderItems();
 renderSummary();
-renderBalance(totals);
