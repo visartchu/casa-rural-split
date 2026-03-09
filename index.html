@@ -13,7 +13,7 @@
       color: #111;
     }
     .wrap {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 20px;
     }
@@ -26,6 +26,14 @@
       padding: 16px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.06);
       margin-bottom: 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
     }
     .toolbar {
       display: flex;
@@ -43,14 +51,7 @@
     .btn-dark { background: #111; color: white; }
     .btn-light { background: #e9e9e9; color: #111; }
     .btn-green { background: #16a34a; color: white; }
-    .grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 20px;
-    }
-    @media (max-width: 900px) {
-      .grid { grid-template-columns: 1fr; }
-    }
+
     .item {
       border: 1px solid #ddd;
       border-radius: 14px;
@@ -82,6 +83,7 @@
       background: white;
       cursor: pointer;
       font-size: 14px;
+      user-select: none;
     }
     .chip.active {
       background: #16a34a;
@@ -89,4 +91,259 @@
       color: white;
     }
     .summary-row {
-      display:
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #f8f8f8;
+      margin-bottom: 10px;
+    }
+    .small {
+      font-size: 12px;
+      color: #666;
+    }
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .filter-btn {
+      background: #e9e9e9;
+      color: #111;
+    }
+    .filter-btn.active {
+      background: #111;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Reparto Casa Rural</h1>
+      <p>Marca quién ha consumido cada producto y la web calcula cuánto paga cada uno.</p>
+
+      <div class="toolbar">
+        <button class="btn-dark" onclick="asignarComunesATodos()">Comunes → todos</button>
+        <button class="btn-light" onclick="limpiarTodo()">Limpiar selección</button>
+        <button class="btn-green" onclick="copiarResumen()">Copiar resumen</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div>
+        <div class="card">
+          <h2>Productos</h2>
+
+          <div class="filters">
+            <button class="filter-btn active" onclick="setFiltro('todos', event)">Todos</button>
+            <button class="filter-btn" onclick="setFiltro('comun', event)">Común</button>
+          </div>
+
+          <div id="items"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <h2>Resumen</h2>
+          <div id="summary"></div>
+          <hr>
+          <div class="summary-row">
+            <span>Total ticket</span>
+            <strong id="grandTotal"></strong>
+          </div>
+          <div class="summary-row">
+            <span>Total repartido</span>
+            <strong id="assignedTotal"></strong>
+          </div>
+          <div class="summary-row">
+            <span>Diferencia</span>
+            <strong id="difference"></strong>
+          </div>
+          <p class="small">Si la diferencia no es 0, hay algo raro. El Excel humano ha fallado.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const people = [
+      "Ivan",
+      "Alvaro",
+      "Alba",
+      "Andreu",
+      "Berni",
+      "Eric",
+      "Nora",
+      "Paula",
+      "Ruben",
+      "Sergi",
+      "Vera",
+      "Isa",
+      "Jordi",
+      "Maria"
+    ];
+
+    const items = [
+      { id: 1, name: "CARBO VEGETAL", price: 4.25, category: "comun", consumers: [...people] },
+      { id: 2, name: "BOSSA PLASTIC", price: 1.20, category: "comun", consumers: [...people] },
+      { id: 3, name: "OLI VERGE", price: 4.45, category: "comun", consumers: [...people] },
+      { id: 4, name: "ROTLLIE CUINA GEGANT", price: 2.90, category: "comun", consumers: [...people] },
+      { id: 5, name: "SAL FINA", price: 0.40, category: "comun", consumers: [...people] },
+      { id: 6, name: "ALL SEC 250 G", price: 1.85, category: "comun", consumers: [...people] },
+      { id: 7, name: "ALLOTI TARRINA", price: 1.10, category: "comun", consumers: [...people] },
+      { id: 8, name: "GOT REUTILITZABLE", price: 1.65, category: "comun", consumers: [...people] },
+      { id: 9, name: "SALSA CALÇOTS (4)", price: 11.20, category: "comun", consumers: [...people] },
+      { id: 10, name: "OLIVA AMB OS PET", price: 1.40, category: "comun", consumers: [...people] },
+      { id: 11, name: "PEBRE NEGRE MOLT", price: 1.30, category: "comun", consumers: [...people] },
+      { id: 12, name: "HIGIENIC DOBLE ROLL", price: 4.50, category: "comun", consumers: [...people] }
+    ];
+
+    let filtroActual = "todos";
+
+    function formatEuro(value) {
+      return value.toFixed(2).replace(".", ",") + " €";
+    }
+
+    function setFiltro(filtro, event) {
+      filtroActual = filtro;
+      document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+      event.target.classList.add("active");
+      renderItems();
+    }
+
+    function toggleConsumer(itemId, person) {
+      const item = items.find(i => i.id === itemId);
+      if (!item) return;
+
+      const index = item.consumers.indexOf(person);
+      if (index >= 0) {
+        item.consumers.splice(index, 1);
+      } else {
+        item.consumers.push(person);
+      }
+
+      renderItems();
+      renderSummary();
+    }
+
+    function asignarComunesATodos() {
+      items.forEach(item => {
+        if (item.category === "comun") {
+          item.consumers = [...people];
+        }
+      });
+      renderItems();
+      renderSummary();
+    }
+
+    function limpiarTodo() {
+      items.forEach(item => {
+        item.consumers = [];
+      });
+      renderItems();
+      renderSummary();
+    }
+
+    function getFilteredItems() {
+      if (filtroActual === "todos") return items;
+      return items.filter(item => item.category === filtroActual);
+    }
+
+    function renderItems() {
+      const container = document.getElementById("items");
+      const filtered = getFilteredItems();
+
+      container.innerHTML = filtered.map(item => {
+        const porPersona = item.consumers.length > 0 ? item.price / item.consumers.length : 0;
+
+        return `
+          <div class="item">
+            <div class="item-top">
+              <div>
+                <div><strong>${item.name}</strong></div>
+                <div class="meta">
+                  ${formatEuro(item.price)}
+                  ${item.consumers.length > 0 ? " · " + formatEuro(porPersona) + " por persona" : " · Sin asignar"}
+                </div>
+              </div>
+            </div>
+            <div class="chips">
+              ${people.map(person => `
+                <span
+                  class="chip ${item.consumers.includes(person) ? "active" : ""}"
+                  onclick="toggleConsumer(${item.id}, '${person.replace(/'/g, "\\'")}')"
+                >
+                  ${person}
+                </span>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderSummary() {
+      const totals = {};
+      people.forEach(person => totals[person] = 0);
+
+      items.forEach(item => {
+        if (item.consumers.length === 0) return;
+        const split = item.price / item.consumers.length;
+        item.consumers.forEach(person => {
+          totals[person] += split;
+        });
+      });
+
+      const grandTotal = items.reduce((sum, item) => sum + item.price, 0);
+      const assignedTotal = Object.values(totals).reduce((sum, value) => sum + value, 0);
+      const difference = grandTotal - assignedTotal;
+
+      const summary = document.getElementById("summary");
+      summary.innerHTML = people.map(person => `
+        <div class="summary-row">
+          <span>${person}</span>
+          <strong>${formatEuro(totals[person])}</strong>
+        </div>
+      `).join("");
+
+      document.getElementById("grandTotal").textContent = formatEuro(grandTotal);
+      document.getElementById("assignedTotal").textContent = formatEuro(assignedTotal);
+      document.getElementById("difference").textContent = formatEuro(difference);
+    }
+
+    function copiarResumen() {
+      const totals = {};
+      people.forEach(person => totals[person] = 0);
+
+      items.forEach(item => {
+        if (item.consumers.length === 0) return;
+        const split = item.price / item.consumers.length;
+        item.consumers.forEach(person => {
+          totals[person] += split;
+        });
+      });
+
+      const grandTotal = items.reduce((sum, item) => sum + item.price, 0);
+
+      const texto = [
+        "Reparto casa rural",
+        "",
+        ...people.map(person => `${person}: ${formatEuro(totals[person])}`),
+        "",
+        `Total ticket: ${formatEuro(grandTotal)}`
+      ].join("\n");
+
+      navigator.clipboard.writeText(texto)
+        .then(() => alert("Resumen copiado"))
+        .catch(() => alert("No se pudo copiar automáticamente"));
+    }
+
+    renderItems();
+    renderSummary();
+  </script>
+</body>
+</html>
