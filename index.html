@@ -278,16 +278,20 @@
                 </div>
               </div>
             </div>
-            <div class="chips">
-              ${people.map(person => `
-                <span
-                  class="chip ${item.consumers.includes(person) ? "active" : ""}"
-                  onclick="toggleConsumer(${item.id}, '${person.replace(/'/g, "\\'")}')"
-                >
-                  ${person}
-                </span>
-              `).join("")}
-            </div>
+            ${item.category === "comun" ? `
+  <div class="meta">Repartido automáticamente entre todos</div>
+` : `
+  <div class="chips">
+    ${people.map(person => `
+      <span
+        class="chip ${item.consumers.includes(person) ? "active" : ""}"
+        onclick="toggleConsumer(${item.id}, '${person.replace(/'/g, "\\'")}')"
+      >
+        ${person}
+      </span>
+    `).join("")}
+  </div>
+`}
           </div>
         `;
       }).join("");
