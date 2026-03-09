@@ -41,7 +41,6 @@ const items = [
   { id: 17, name: "RUFFLES JAMÓN", price: 2.99, category: "comun", consumers: [...people] },
   { id: 18, name: "PAPEL DE PLATA", price: 3.34, category: "comun", consumers: [...people] },
   { id: 19, name: "AGUA", price: 3.98, category: "comun", consumers: [...people] },
-  { id: 20, name: "CALÇOTS", price: 40.00, category: "comun", consumers: [...people] },
   { id: 26, name: "ESTROPAJO", price: 2.00, category: "comun", consumers: [...people] },
 
   // Alcohol oculto por ahora
@@ -60,6 +59,7 @@ const summaryContainer = document.getElementById("summary");
 const grandTotalEl = document.getElementById("grandTotal");
 const assignedTotalEl = document.getElementById("assignedTotal");
 const differenceEl = document.getElementById("difference");
+const balanceDiv = document.getElementById("balance");
 
 function formatEuro(value) {
   return value.toFixed(2).replace(".", ",") + " €";
@@ -160,6 +160,25 @@ function renderItems() {
   }).join("");
 }
 
+function renderBalance(totals) {
+  const balance = {};
+
+  people.forEach((p) => {
+    const pagado = paid[p] || 0;
+    const consumido = totals[p] || 0;
+    balance[p] = pagado - consumido;
+  });
+
+  if (!balanceDiv) return;
+
+  balanceDiv.innerHTML = people.map((p) => `
+    <div class="summary-row">
+      <span>${p}</span>
+      <strong>${formatEuro(balance[p])}</strong>
+    </div>
+  `).join("");
+}
+
 function renderSummary() {
   const totals = {};
   people.forEach((person) => {
@@ -167,6 +186,7 @@ function renderSummary() {
   });
 
   items.forEach((item) => {
+    if (item.category === "alcohol") return;
     if (item.consumers.length === 0) return;
 
     const split = item.price / item.consumers.length;
@@ -195,42 +215,6 @@ function renderSummary() {
 
   renderBalance(totals);
 }
-
-  items.forEach((item) => {
-    if (item.consumers.length === 0) return;
-
-    const split = item.price / item.consumers.length;
-    item.consumers.forEach((person) => {
-      totals[person] += split;
-    });
-  });
-
-  const grandTotal = items
-    .filter((item) => item.category !== "alcohol")
-    .reduce((sum, item) => sum + item.price, 0);
-
-  const assignedTotal = Object.values(totals).reduce((sum, value) => sum + value, 0);
-  const difference = grandTotal - assignedTotal;
-
-  summaryContainer.innerHTML = people.map((person) => `
-    <div class="summary-row">
-      <span>${person}</span>
-      <strong>${formatEuro(totals[person])}</strong>
-    </div>
-  `).join("");
-
-  grandTotalEl.textContent = formatEuro(grandTotal);
-  assignedTotalEl.textContent = formatEuro(assignedTotal);
-  differenceEl.textContent = formatEuro(difference);
-}
-
-document.getElementById("btnComunes").addEventListener("click", asignarComunesATodos);
-document.getElementById("btnLimpiar").addEventListener("click", limpiarTodo);
-document.getElementById("btnCopiar").addEventListener("click", copiarResumen);
-
-document.querySelectorAll(".filter-btn").forEach((btn) => {
-  btn.addEventListener("click", () => setFiltro(btn.dataset.filter));
-});
 
 function copiarResumen() {
   const totals = {};
@@ -265,25 +249,13 @@ function copiarResumen() {
     .catch(() => alert("No se pudo copiar automáticamente"));
 }
 
-function renderBalance(totals) {
+document.getElementById("btnComunes").addEventListener("click", asignarComunesATodos);
+document.getElementById("btnLimpiar").addEventListener("click", limpiarTodo);
+document.getElementById("btnCopiar").addEventListener("click", copiarResumen);
 
-  const balance = {};
-
-  people.forEach(p => {
-    const pagado = paid[p] || 0;
-    const consumido = totals[p] || 0;
-    balance[p] = pagado - consumido;
-  });
-
-  const balanceDiv = document.getElementById("balance");
-
-  balanceDiv.innerHTML = people.map(p => `
-    <div class="summary-row">
-      <span>${p}</span>
-      <strong>${formatEuro(balance[p])}</strong>
-    </div>
-  `).join("");
-}
+document.querySelectorAll(".filter-btn").forEach((btn) => {
+  btn.addEventListener("click", () => setFiltro(btn.dataset.filter));
+});
 
 renderItems();
 renderSummary();
