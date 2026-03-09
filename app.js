@@ -18,7 +18,8 @@ const people = [
 const paid = {
   Vera: 23.23,
   Jordi: 2,
-  Alvaro: 76.20
+  Alvaro: 76.20,
+  Berni: 5.50
 };
 
 const items = [
@@ -41,7 +42,8 @@ const items = [
   { id: 17, name: "RUFFLES JAMÓN", price: 2.99, category: "comun", consumers: [...people] },
   { id: 18, name: "PAPEL DE PLATA", price: 3.34, category: "comun", consumers: [...people] },
   { id: 19, name: "AGUA", price: 3.98, category: "comun", consumers: [...people] },
-  { id: 20, name: "ESTROPAJO", price: 2.00, category: "comun", consumers: [...people] }
+  { id: 20, name: "ESTROPAJO", price: 2.00, category: "comun", consumers: [...people] },
+  { id: 21, name: "HIELOS", price: 5.50, category: "comun", consumers: [...people] }
 ];
 
 let filtroActual = "comun";
