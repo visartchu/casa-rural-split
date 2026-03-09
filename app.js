@@ -15,6 +15,12 @@ const people = [
   "Maria"
 ];
 
+const paid = {
+  Vera: 23.23,
+  Jordi: 2,
+  Alvaro: 70.26
+};
+
 const items = [
   { id: 1, name: "CARBO VEGETAL", price: 4.25, category: "comun", consumers: [...people] },
   { id: 2, name: "BOSSA PLASTIC", price: 1.20, category: "comun", consumers: [...people] },
