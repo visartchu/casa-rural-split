@@ -29,7 +29,7 @@ const items = [
   { id: 4, name: "ROTLLIE CUINA GEGANT", price: 2.90, category: "comun", consumers: "all" },
   { id: 5, name: "SAL FINA", price: 0.40, category: "comun", consumers: "all" },
   { id: 6, name: "ALL SEC 250 G", price: 1.85, category: "comun", consumers: "all" },
-  { id: 7, name: "ALLOTI TARRINA", price: 1.10, category: "comun", consumers: "all" },
+  { id: 7, name: "ALLOTI TARRINA", price: 1.10, category: "comun", exclude: ["Berni", "Vera"] },
   { id: 8, name: "GOT REUTILITZABLE", price: 1.65, category: "comun", consumers: "all" },
   { id: 9, name: "SALSA CALÇOTS (4)", price: 11.20, category: "comun", exclude: ["Berni", "Vera"] },
   { id: 10, name: "OLIVA AMB OS PET", price: 1.40, category: "comun", consumers: "all" },
