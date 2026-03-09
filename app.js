@@ -18,7 +18,7 @@ const people = [
 const paid = {
   Vera: 23.23,
   Jordi: 2,
-  Alvaro: 70.26
+  Alvaro: 76.20
 };
 
 const items = [
@@ -41,25 +41,18 @@ const items = [
   { id: 17, name: "RUFFLES JAMÓN", price: 2.99, category: "comun", consumers: [...people] },
   { id: 18, name: "PAPEL DE PLATA", price: 3.34, category: "comun", consumers: [...people] },
   { id: 19, name: "AGUA", price: 3.98, category: "comun", consumers: [...people] },
-  { id: 26, name: "ESTROPAJO", price: 2.00, category: "comun", consumers: [...people] },
-
-  // Alcohol oculto por ahora
-  { id: 29, name: "Ron viernes 1", price: 15.45, category: "alcohol", consumers: [] },
-  { id: 21, name: "Ron sábado 3", price: 46.35, category: "alcohol", consumers: [] },
-  { id: 22, name: "Jager viernes 1", price: 15.25, category: "alcohol", consumers: [] },
-  { id: 23, name: "Jager sábado 1", price: 15.25, category: "alcohol", consumers: [] },
-  { id: 24, name: "Cola Zero 1", price: 4.10, category: "alcohol", consumers: [] },
-  { id: 25, name: "Cola Zero 2", price: 4.10, category: "alcohol", consumers: [] }
+  { id: 20, name: "ESTROPAJO", price: 2.00, category: "comun", consumers: [...people] }
 ];
 
-let filtroActual = "todos";
+let filtroActual = "comun";
 
 const itemsContainer = document.getElementById("items");
+const paymentsDiv = document.getElementById("payments");
 const summaryContainer = document.getElementById("summary");
+const balanceDiv = document.getElementById("balance");
 const grandTotalEl = document.getElementById("grandTotal");
 const assignedTotalEl = document.getElementById("assignedTotal");
 const differenceEl = document.getElementById("difference");
-const balanceDiv = document.getElementById("balance");
 
 function formatEuro(value) {
   return value.toFixed(2).replace(".", ",") + " €";
@@ -72,19 +65,12 @@ function setFiltro(filtro) {
     btn.classList.toggle("active", btn.dataset.filter === filtro);
   });
 
-  renderItems();
-}
-
-function toggleConsumer(itemId, person) {
-  const item = items.find((i) => i.id === itemId);
-  if (!item || item.category === "comun") return;
-
-  const index = item.consumers.indexOf(person);
-
-  if (index >= 0) {
-    item.consumers.splice(index, 1);
+  if (filtro === "pagos") {
+    itemsContainer.classList.add("hidden");
+    paymentsDiv.classList.remove("hidden");
   } else {
-    item.consumers.push(person);
+    paymentsDiv.classList.add("hidden");
+    itemsContainer.classList.remove("hidden");
   }
 
   renderItems();
@@ -103,22 +89,17 @@ function asignarComunesATodos() {
 }
 
 function limpiarTodo() {
-  items.forEach((item) => {
-    if (item.category !== "comun") {
-      item.consumers = [];
-    }
-  });
-
+  // No toca los comunes porque van fijos.
   renderItems();
   renderSummary();
 }
 
 function getFilteredItems() {
-  if (filtroActual === "todos") {
-    return items.filter((item) => item.category !== "alcohol");
+  if (filtroActual === "comun") {
+    return items.filter((item) => item.category === "comun");
   }
 
-  return items.filter((item) => item.category === filtroActual);
+  return [];
 }
 
 function renderItems() {
@@ -133,60 +114,24 @@ function renderItems() {
           <div>
             <div><strong>${item.name}</strong></div>
             <div class="meta">
-              ${formatEuro(item.price)}
-              ${item.consumers.length > 0 ? " · " + formatEuro(porPersona) + " por persona" : " · Sin asignar"}
+              ${formatEuro(item.price)} · ${formatEuro(porPersona)} por persona
             </div>
           </div>
         </div>
 
-        ${
-          item.category === "comun"
-            ? `<div class="meta">Repartido automáticamente entre todos</div>`
-            : `
-              <div class="chips">
-                ${people.map((person) => `
-                  <span
-                    class="chip ${item.consumers.includes(person) ? "active" : ""}"
-                    onclick="toggleConsumer(${item.id}, '${person.replace(/'/g, "\\'")}')"
-                  >
-                    ${person}
-                  </span>
-                `).join("")}
-              </div>
-            `
-        }
+        <div class="meta">Repartido automáticamente entre todos</div>
       </div>
     `;
   }).join("");
 }
 
-function renderBalance(totals) {
-  const balance = {};
-
-  people.forEach((p) => {
-    const pagado = paid[p] || 0;
-    const consumido = totals[p] || 0;
-    balance[p] = pagado - consumido;
-  });
-
-  if (!balanceDiv) return;
-
-  balanceDiv.innerHTML = people.map((p) => `
-    <div class="summary-row">
-      <span>${p}</span>
-      <strong>${formatEuro(balance[p])}</strong>
-    </div>
-  `).join("");
-}
-
-function renderSummary() {
+function buildTotals() {
   const totals = {};
   people.forEach((person) => {
     totals[person] = 0;
   });
 
   items.forEach((item) => {
-    if (item.category === "alcohol") return;
     if (item.consumers.length === 0) return;
 
     const split = item.price / item.consumers.length;
@@ -195,10 +140,96 @@ function renderSummary() {
     });
   });
 
-  const grandTotal = items
-    .filter((item) => item.category !== "alcohol")
-    .reduce((sum, item) => sum + item.price, 0);
+  return totals;
+}
 
+function renderBalance(totals) {
+  const balance = {};
+
+  people.forEach((person) => {
+    const pagado = paid[person] || 0;
+    const consumido = totals[person] || 0;
+    balance[person] = +(pagado - consumido).toFixed(2);
+  });
+
+  balanceDiv.innerHTML = people.map((person) => `
+    <div class="summary-row">
+      <span>${person}</span>
+      <strong>${formatEuro(balance[person])}</strong>
+    </div>
+  `).join("");
+}
+
+function renderPayments(totals) {
+  const debtors = [];
+  const creditors = [];
+
+  people.forEach((person) => {
+    const pagado = paid[person] || 0;
+    const consumido = totals[person] || 0;
+    const balance = +(pagado - consumido).toFixed(2);
+
+    if (balance < -0.009) {
+      debtors.push({
+        name: person,
+        amount: +Math.abs(balance).toFixed(2)
+      });
+    } else if (balance > 0.009) {
+      creditors.push({
+        name: person,
+        amount: +balance.toFixed(2)
+      });
+    }
+  });
+
+  const payments = [];
+  let i = 0;
+  let j = 0;
+
+  while (i < debtors.length && j < creditors.length) {
+    const debtor = debtors[i];
+    const creditor = creditors[j];
+
+    const amount = Math.min(debtor.amount, creditor.amount);
+    const roundedAmount = +amount.toFixed(2);
+
+    if (roundedAmount > 0) {
+      payments.push({
+        from: debtor.name,
+        to: creditor.name,
+        amount: roundedAmount
+      });
+
+      debtor.amount = +(debtor.amount - roundedAmount).toFixed(2);
+      creditor.amount = +(creditor.amount - roundedAmount).toFixed(2);
+    }
+
+    if (debtor.amount <= 0.009) i++;
+    if (creditor.amount <= 0.009) j++;
+  }
+
+  if (payments.length === 0) {
+    paymentsDiv.innerHTML = `
+      <div class="payment-row">
+        <span>No hay pagos pendientes</span>
+        <strong>0,00 €</strong>
+      </div>
+    `;
+    return;
+  }
+
+  paymentsDiv.innerHTML = payments.map((payment) => `
+    <div class="payment-row">
+      <span>${payment.from} paga a ${payment.to}</span>
+      <strong>${formatEuro(payment.amount)}</strong>
+    </div>
+  `).join("");
+}
+
+function renderSummary() {
+  const totals = buildTotals();
+
+  const grandTotal = items.reduce((sum, item) => sum + item.price, 0);
   const assignedTotal = Object.values(totals).reduce((sum, value) => sum + value, 0);
   const difference = grandTotal - assignedTotal;
 
@@ -214,32 +245,64 @@ function renderSummary() {
   differenceEl.textContent = formatEuro(difference);
 
   renderBalance(totals);
+  renderPayments(totals);
 }
 
 function copiarResumen() {
-  const totals = {};
+  const totals = buildTotals();
+
+  const debtors = [];
+  const creditors = [];
+
   people.forEach((person) => {
-    totals[person] = 0;
+    const pagado = paid[person] || 0;
+    const consumido = totals[person] || 0;
+    const balance = +(pagado - consumido).toFixed(2);
+
+    if (balance < -0.009) {
+      debtors.push({
+        name: person,
+        amount: +Math.abs(balance).toFixed(2)
+      });
+    } else if (balance > 0.009) {
+      creditors.push({
+        name: person,
+        amount: +balance.toFixed(2)
+      });
+    }
   });
 
-  items.forEach((item) => {
-    if (item.category === "alcohol") return;
-    if (item.consumers.length === 0) return;
+  const payments = [];
+  let i = 0;
+  let j = 0;
 
-    const split = item.price / item.consumers.length;
-    item.consumers.forEach((person) => {
-      totals[person] += split;
-    });
-  });
+  while (i < debtors.length && j < creditors.length) {
+    const debtor = debtors[i];
+    const creditor = creditors[j];
 
-  const grandTotal = items
-    .filter((item) => item.category !== "alcohol")
-    .reduce((sum, item) => sum + item.price, 0);
+    const amount = Math.min(debtor.amount, creditor.amount);
+    const roundedAmount = +amount.toFixed(2);
+
+    if (roundedAmount > 0) {
+      payments.push(`${debtor.name} paga a ${creditor.name}: ${formatEuro(roundedAmount)}`);
+      debtor.amount = +(debtor.amount - roundedAmount).toFixed(2);
+      creditor.amount = +(creditor.amount - roundedAmount).toFixed(2);
+    }
+
+    if (debtor.amount <= 0.009) i++;
+    if (creditor.amount <= 0.009) j++;
+  }
+
+  const grandTotal = items.reduce((sum, item) => sum + item.price, 0);
 
   const texto = [
     "Reparto casa rural",
     "",
+    "Resumen:",
     ...people.map((person) => `${person}: ${formatEuro(totals[person])}`),
+    "",
+    "Pagos:",
+    ...payments,
     "",
     `Total ticket: ${formatEuro(grandTotal)}`
   ].join("\n");
