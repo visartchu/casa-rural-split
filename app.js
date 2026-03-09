@@ -42,9 +42,10 @@ const items = [
   { id: 18, name: "PAPEL DE PLATA", price: 3.34, category: "comun", consumers: [...people] },
   { id: 19, name: "AGUA", price: 3.98, category: "comun", consumers: [...people] },
   { id: 20, name: "CALÇOTS", price: 40.00, category: "comun", consumers: [...people] },
+  { id: 26, name: "ESTROPAJO", price: 2.00, category: "comun", consumers: [...people] },
 
   // Alcohol oculto por ahora
-  { id: 20, name: "Ron viernes 1", price: 15.45, category: "alcohol", consumers: [] },
+  { id: 26, name: "Ron viernes 1", price: 15.45, category: "alcohol", consumers: [] },
   { id: 21, name: "Ron sábado 3", price: 46.35, category: "alcohol", consumers: [] },
   { id: 22, name: "Jager viernes 1", price: 15.25, category: "alcohol", consumers: [] },
   { id: 23, name: "Jager sábado 1", price: 15.25, category: "alcohol", consumers: [] },
