@@ -234,5 +234,26 @@ function copiarResumen() {
     .catch(() => alert("No se pudo copiar automáticamente"));
 }
 
+function renderBalance(totals) {
+
+  const balance = {};
+
+  people.forEach(p => {
+    const pagado = paid[p] || 0;
+    const consumido = totals[p] || 0;
+    balance[p] = pagado - consumido;
+  });
+
+  const balanceDiv = document.getElementById("balance");
+
+  balanceDiv.innerHTML = people.map(p => `
+    <div class="summary-row">
+      <span>${p}</span>
+      <strong>${formatEuro(balance[p])}</strong>
+    </div>
+  `).join("");
+}
+
 renderItems();
 renderSummary();
+renderBalance(totals);
