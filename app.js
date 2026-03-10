@@ -35,13 +35,6 @@ function setFiltro(filtro) {
     btn.classList.toggle("active", btn.dataset.filter === filtro);
   });
 
-function setFiltro(filtro) {
-  filtroActual = filtro;
-
-  document.querySelectorAll(".filter-btn").forEach((btn) => {
-    btn.classList.toggle("active", btn.dataset.filter === filtro);
-  });
-
   itemsContainer.classList.remove("hidden");
   paymentsDiv.classList.remove("hidden");
 
