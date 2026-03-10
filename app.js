@@ -80,8 +80,6 @@ function getFilteredItems() {
   return [];
 }
 
-  return [];
-}
 
 function renderItems() {
   const filtered = getFilteredItems();
