@@ -17,6 +17,32 @@
       align-items: start;
     }
 
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .filter-btn {
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background: white;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .filter-btn.active {
+      background: #111;
+      color: white;
+      border-color: #111;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
     @media (max-width: 900px) {
       .grid-two-columns {
         grid-template-columns: 1fr;
@@ -32,7 +58,14 @@
 
     <main class="grid-two-columns">
       <section class="card">
-        <h2>Común</h2>
+        <h2>Productos</h2>
+
+        <div class="filters">
+          <button class="filter-btn active" data-filter="comun">Común</button>
+          <button class="filter-btn" data-filter="alcohol_viernes">Alcohol Viernes</button>
+          <button class="filter-btn" data-filter="alcohol_sabado">Alcohol Sábado</button>
+        </div>
+
         <div id="items"></div>
       </section>
 
@@ -42,7 +75,6 @@
       </section>
     </main>
 
-    <!-- Elementos ocultos para que app.js no falle -->
     <div class="js-helper-hidden">
       <button id="btnComunes">Comunes → todos</button>
       <button id="btnLimpiar">Limpiar pagos editables</button>
