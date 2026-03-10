@@ -1,3 +1,26 @@
+const people = [
+  "Ivan",
+  "Alvaro",
+  "Alba",
+  "Andreu",
+  "Berni",
+  "Eric",
+  "Nora",
+  "Paula",
+  "Ruben",
+  "Sergi",
+  "Vera",
+  "Isa",
+  "Jordi",
+  "Maria"
+];
+
+const paid = {
+  Vera: 23.23,
+  Jordi: 2,
+  Alvaro: 76.20,
+  Berni: 5.50
+};
 const items = [
   { id: 1, name: "CARBO VEGETAL", price: 4.25, category: "comun", consumers: "all" },
   //{ id: 2, name: "BOSSA PLASTIC", price: 1.20, category: "comun", consumers: "all" },
