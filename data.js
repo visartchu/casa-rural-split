@@ -1,27 +1,3 @@
-const people = [
-  "Ivan",
-  "Alvaro",
-  "Alba",
-  "Andreu",
-  "Berni",
-  "Eric",
-  "Nora",
-  "Paula",
-  "Ruben",
-  "Sergi",
-  "Vera",
-  "Isa",
-  "Jordi",
-  "Maria"
-];
-
-const paid = {
-  Vera: 23.23,
-  Jordi: 2,
-  Alvaro: 76.20,
-  Berni: 5.50
-};
-
 const items = [
   { id: 1, name: "CARBO VEGETAL", price: 4.25, category: "comun", consumers: "all" },
   //{ id: 2, name: "BOSSA PLASTIC", price: 1.20, category: "comun", consumers: "all" },
@@ -39,10 +15,18 @@ const items = [
   { id: 14, name: "OLIVAS", price: 4.89, category: "comun", exclude: ["Isa"] },
   { id: 15, name: "PATATAS", price: 5.98, category: "comun", consumers: "all" },
   { id: 16, name: "PATATAS CAMPESINAS", price: 2.05, category: "comun", consumers: "all" },
-  { id: 17, name: "RUFFLES JAMÓN", price: 2.99, category: "comun",  exclude: ["Berni"] },
+  { id: 17, name: "RUFFLES JAMÓN", price: 2.99, category: "comun", exclude: ["Berni"] },
   { id: 18, name: "PAPEL DE PLATA", price: 3.34, category: "comun", consumers: "all" },
   { id: 19, name: "BOLSAS DE BASURA", price: 2.10, category: "comun", exclude: ["Ruben", "Eric"] },
   { id: 20, name: "ESTROPAJO", price: 2.00, category: "comun", consumers: "all" },
   { id: 21, name: "HIELOS", price: 5.50, category: "comun", exclude: ["Isa"] },
-  { id: 22, name: "PASTILLAS CARBON", price: 1.05, category: "comun", consumers: "all" }
+  { id: 22, name: "PASTILLAS CARBON", price: 1.05, category: "comun", consumers: "all" },
+
+  { id: 23, name: "RON VIERNES", price: 15.45, category: "alcohol_viernes", consumers: "all" },
+  { id: 24, name: "JAGGER VIERNES", price: 15.25, category: "alcohol_viernes", consumers: "all" },
+  { id: 25, name: "COCACOLA VIERNES", price: 4.10, category: "alcohol_viernes", consumers: "all" },
+
+  { id: 26, name: "RON SABADO (x3)", price: 46.35, category: "alcohol_sabado", consumers: "all" },
+  { id: 29, name: "JAGGER SABADO", price: 15.25, category: "alcohol_sabado", consumers: "all" },
+  { id: 30, name: "COCACOLA SABADO", price: 8.20, category: "alcohol_sabado", consumers: "all" }
 ];
