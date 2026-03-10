@@ -47,7 +47,7 @@ const items = [
   { id: 23, name: "RON VIERNES", price: 15.45, category: "alcohol_viernes", exclude: ["Alba", "Eric", "Nora", "Paula", "Ruben", "Isa", "Jordi", "Maria", "Sergi"] },
 { id: 24, name: "JAGGER VIERNES", price: 15.25, category: "alcohol_viernes", exclude: ["Alba", "Eric", "Nora", "Paula", "Isa", "Jordi", "Maria", "Ivan"] },
 { id: 25, name: "COCACOLA VIERNES", price: 4.10, category: "alcohol_viernes", exclude: ["Alba", "Eric", "Nora", "Paula", "Ruben", "Isa", "Jordi", "Maria"] },
-{ id: 26, name: "RON SABADO (x3)", price: 46.35, category: "alcohol_sabado", exclude: ["Ruben", "Eric", "Nora"] },
-{ id: 29, name: "JAGGER SABADO", price: 15.25, category: "alcohol_sabado", exclude: ["Ruben", "Eric", "Nora", "Ivan"] },
-{ id: 30, name: "COCACOLA SABADO", price: 8.20, category: "alcohol_sabado", exclude: ["Ruben", "Eric", "Nora"] },
+{ id: 26, name: "RON SABADO (x3)", price: 46.35, category: "alcohol_sabado", exclude: ["Ruben", "Eric", "Nora","Isa"] },
+{ id: 29, name: "JAGGER SABADO", price: 15.25, category: "alcohol_sabado", exclude: ["Ruben", "Eric", "Nora", "Ivan","Isa"] },
+{ id: 30, name: "COCACOLA SABADO", price: 8.20, category: "alcohol_sabado", exclude: ["Ruben", "Eric", "Nora","Isa"] },
 ];
