@@ -35,13 +35,15 @@ function setFiltro(filtro) {
     btn.classList.toggle("active", btn.dataset.filter === filtro);
   });
 
-  if (filtro === "pagos") {
-    itemsContainer.classList.add("hidden");
-    paymentsDiv.classList.remove("hidden");
-  } else {
-    paymentsDiv.classList.add("hidden");
-    itemsContainer.classList.remove("hidden");
-  }
+function setFiltro(filtro) {
+  filtroActual = filtro;
+
+  document.querySelectorAll(".filter-btn").forEach((btn) => {
+    btn.classList.toggle("active", btn.dataset.filter === filtro);
+  });
+
+  itemsContainer.classList.remove("hidden");
+  paymentsDiv.classList.remove("hidden");
 
   renderItems();
   renderSummary();
