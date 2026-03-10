@@ -69,6 +69,17 @@ function getFilteredItems() {
     return items.filter((item) => item.category === "comun");
   }
 
+  if (filtroActual === "alcohol_viernes") {
+    return items.filter((item) => item.category === "alcohol_viernes");
+  }
+
+  if (filtroActual === "alcohol_sabado") {
+    return items.filter((item) => item.category === "alcohol_sabado");
+  }
+
+  return [];
+}
+
   return [];
 }
 
