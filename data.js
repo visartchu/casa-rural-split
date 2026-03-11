@@ -35,7 +35,7 @@ const items = [
   { id: 11, name: "PEBRE NEGRE MOLT", price: 1.30, category: "comun", consumers: "all" },
   { id: 12, name: "HIGIENIC DOBLE ROLL", price: 4.50, category: "comun", consumers: "all" },
   { id: 13, name: "CALÇOTS", price: 40.00, category: "comun", exclude: ["Berni", "Vera"] },
-  { id: 14, name: "OLIVAS", price: 4.89, category: "comun", exclude: ["Ruben","Eric"] },
+  { id: 14, name: "OLIVAS", price: 4.89, category: "comun", exclude: ["Ruben","Eric","Nora"] },
   { id: 15, name: "PATATAS", price: 5.98, category: "comun", exclude: ["Ruben","Eric"] },
   { id: 16, name: "PATATAS CAMPESINAS", price: 2.05, category: "comun", exclude: ["Ruben","Eric"] },
   { id: 17, name: "RUFFLES JAMÓN", price: 2.99, category: "comun", exclude: ["Ruben","Eric"] },
