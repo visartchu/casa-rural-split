@@ -18,7 +18,7 @@ const people = [
 const paid = {
   Vera: 23.23,
   Jordi: 2,
-  Alvaro: 180.8,
+  Alvaro: 243,3,
   Berni: 5.50,
   Ruben: 5.00
 };
@@ -46,10 +46,14 @@ const items = [
   { id: 20, name: "COSAS RUBEN (Cafe, Jabón,Agua,Ketchup,Tomate", price: 5.00, category: "comun", exclude: ["Ruben","Eric"] },
   { id: 21, name: "HIELOS", price: 5.50, category: "comun", exclude: ["Isa","Ruben","Eric"] },
   { id: 22, name: "PASTILLAS CARBON", price: 1.05, category: "comun", consumers: "all" },
+  
   { id: 23, name: "RON VIERNES", price: 15.45, category: "alcohol_viernes", exclude: ["Alba", "Eric", "Nora", "Paula", "Ruben", "Isa", "Jordi", "Maria", "Sergi","Berni"] },
 { id: 24, name: "JAGGER VIERNES", price: 15.25, category: "alcohol_viernes", exclude: ["Alba", "Eric", "Nora", "Paula", "Isa", "Jordi", "Maria", "Ivan","Berni"] },
 { id: 25, name: "COCACOLA VIERNES", price: 4.10, category: "alcohol_viernes", exclude: ["Alba", "Eric", "Nora", "Paula", "Ruben", "Isa", "Jordi", "Maria"] },
 { id: 26, name: "RON SABADO (x3)", price: 46.35, category: "alcohol_sabado", exclude: ["Ruben", "Eric", "Nora","Isa","Vera","Berni","Jordi"] },
 { id: 29, name: "JAGGER SABADO", price: 15.25, category: "alcohol_sabado", exclude: ["Ruben", "Eric", "Nora", "Ivan","Isa","Vera","Berni","Jordi"] },
 { id: 30, name: "COCACOLA SABADO", price: 8.20, category: "alcohol_sabado", exclude: ["Ruben", "Eric", "Nora","Isa","Vera","Berni","Jordi"] },
+{ id: 31,  name: "AJUSTE CASA RURAL VIERNES",  price: 31.25,  category: "comun", exclude:  ["Maria", "Alba", "Nora", "Paula","Isa","Jordi"] },
+{ id: 32,  name: "AJUSTE CASA RURAL SABADO",  price: 31.25,  category: "comun",  consumers: "all"}
+
 ];
