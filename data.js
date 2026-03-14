@@ -20,7 +20,6 @@ const paid = {
   Jordi: 2,
   Alvaro: 180.8,
   Berni: 5.50,
-  RUben: 5.00
 };
 const items = [
   { id: 1, name: "CARBO VEGETAL", price: 4.25, category: "comun", consumers: "all" },
