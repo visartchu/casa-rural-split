@@ -18,7 +18,7 @@ const people = [
 const paid = {
   Vera: 23.23,
   Jordi: 2,
-  Alvaro: 243,3,
+  Alvaro: 243.3,
   Berni: 5.50,
   Ruben: 5.00
 };
