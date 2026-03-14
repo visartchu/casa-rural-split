@@ -53,7 +53,7 @@ const items = [
   { id: 26, name: "RON SABADO (x3)", price: 46.35, category: "alcohol_sabado", exclude: ["Ruben", "Eric", "Nora","Isa","Vera","Berni","Jordi"] },
   { id: 29, name: "JAGGER SABADO", price: 15.25, category: "alcohol_sabado", exclude: ["Ruben", "Eric", "Nora", "Ivan","Isa","Vera","Berni","Jordi"] },
   { id: 30, name: "COCACOLA SABADO", price: 8.20, category: "alcohol_sabado", exclude: ["Ruben", "Eric", "Nora","Isa","Vera","Berni","Jordi"] },
-  { id: 31,  name: "AJUSTE CASA RURAL VIERNES",  price: 31.25,  category: "comun", exclude:  ["Maria", "Alba", "Nora", "Paula","Isa","Jordi"] },
-  { id: 32,  name: "AJUSTE CASA RURAL SABADO",  price: 31.25,  category: "comun",  consumers: "all"}
+  { id: 31,  name: "AJUSTE CASA RURAL VIERNES",  price: 23,  category: "comun", exclude:  ["Maria", "Alba", "Nora", "Paula","Isa","Jordi"] },
+  { id: 32,  name: "AJUSTE CASA RURAL SABADO",  price: 40,  category: "comun",  consumers: "all"}
 
 ];
