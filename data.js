@@ -43,7 +43,7 @@ const items = [
   { id: 18, name: "PAPEL DE PLATA", price: 3.34, category: "comun", consumers: "all" },
   { id: 19, name: "BOLSAS DE BASURA", price: 2.10, category: "comun", exclude: ["Ruben", "Eric"] },
   { id: 20, name: "ESTROPAJO", price: 2.00, category: "comun", consumers: "all" },
-  { id: 20, name: "COSAS RUBEN (Cafe, Jabón,Agua,Ketchup,Tomate", price: 5.00, category: "comun", consumers: "all" },
+  { id: 20, name: "COSAS RUBEN (Cafe, Jabón,Agua,Ketchup,Tomate", price: 5.00, category: "comun", exclude: ["Ruben","Eric"] },
   { id: 21, name: "HIELOS", price: 5.50, category: "comun", exclude: ["Isa","Ruben","Eric"] },
   { id: 22, name: "PASTILLAS CARBON", price: 1.05, category: "comun", consumers: "all" },
   { id: 23, name: "RON VIERNES", price: 15.45, category: "alcohol_viernes", exclude: ["Alba", "Eric", "Nora", "Paula", "Ruben", "Isa", "Jordi", "Maria", "Sergi","Berni"] },
